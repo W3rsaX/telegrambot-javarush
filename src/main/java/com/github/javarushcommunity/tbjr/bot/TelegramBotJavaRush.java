@@ -6,7 +6,7 @@ import org.telegram.telegrambots.longpolling.interfaces.LongPollingUpdateConsume
 import org.telegram.telegrambots.longpolling.starter.SpringLongPollingBot;
 
 @Component
-public class TelegramBotJavaRush  implements SpringLongPollingBot {
+public class TelegramBotJavaRush implements SpringLongPollingBot {
 
   private final UpdateConsumer updateConsumer;
 
