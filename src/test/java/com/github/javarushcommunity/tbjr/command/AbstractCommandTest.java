@@ -2,6 +2,7 @@ package com.github.javarushcommunity.tbjr.command;
 
 import com.github.javarushcommunity.tbjr.service.SendBotMessageService;
 import com.github.javarushcommunity.tbjr.service.SendBotMessageServiceImpl;
+import com.github.javarushcommunity.tbjr.service.TelegramUserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -14,8 +15,11 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 abstract class AbstractCommandTest {
 
   protected TelegramClient telegramClient = Mockito.mock(TelegramClient.class);
+
   protected SendBotMessageService sendBotMessageService = new SendBotMessageServiceImpl(
       telegramClient);
+
+  protected TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
 
   abstract String getCommandName();
 

@@ -2,6 +2,7 @@ package com.github.javarushcommunity.tbjr.command;
 
 import static com.github.javarushcommunity.tbjr.command.CommandName.HELP;
 import static com.github.javarushcommunity.tbjr.command.CommandName.START;
+import static com.github.javarushcommunity.tbjr.command.CommandName.STAT;
 import static com.github.javarushcommunity.tbjr.command.CommandName.STOP;
 
 import com.github.javarushcommunity.tbjr.service.SendBotMessageService;
@@ -15,9 +16,10 @@ public class HelpCommand implements Command {
 
           + "<b>Начать\\закончить работу с ботом</b>\n"
           + "%s - начать работу со мной\n"
+          + "%s - статистика бота\n"
           + "%s - приостановить работу со мной\n\n"
           + "%s - получить помощь в работе со мной\n",
-      START.getCommandName(), STOP.getCommandName(), HELP.getCommandName());
+      START.getCommandName(),STAT.getCommandName() , STOP.getCommandName(), HELP.getCommandName());
 
   public HelpCommand(SendBotMessageService sendBotMessageService) {
     this.sendBotMessageService = sendBotMessageService;
