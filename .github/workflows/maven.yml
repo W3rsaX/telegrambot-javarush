@@ -25,7 +25,7 @@ jobs:
       - name: Set up PostgreSQL
         uses: tj-actions/install-postgresql@v3
         with:
-          postgresql version: 'latest'
+          postgresql version: 17
           postgresql db: 'tbjr'
           postgresql user: 'postgres'
           postgresql password: '123'
