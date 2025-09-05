@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: "Telegram bot Java Rush"
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://tbjr-db:5432/tbjr}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+bot:
+  token: ${BOT_TOKEN}
+
