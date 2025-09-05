@@ -23,9 +23,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up PostgreSQL
-        uses: tj-actions/install-postgresql@v3
+        uses: harmon758/postgresql-action@v1
         with:
-          postgresql version: 17
+          postgresql version: '17'
           postgresql db: 'tbjr'
           postgresql user: 'postgres'
           postgresql password: '123'
