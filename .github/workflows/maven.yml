@@ -23,12 +23,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose-plugin
-
-      - name: Start PostgreSQL with Docker Compose
-        run: docker compose -f docker-compose-test.yml up -d --wait
+        uses: hoverkraft-tech/compose-action@v0.0.0
+        with:
+          compose-file: "docker-compose-test.yml"
 
       - name: Wait for PostgreSQL to be ready
         run: |
