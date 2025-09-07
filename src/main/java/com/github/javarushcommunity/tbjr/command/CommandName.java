@@ -4,8 +4,10 @@ public enum CommandName {
 
   START("/start"),
   HELP("/help"),
-  NO(""),
+  NO("nocommand"),
   STAT("/stat"),
+  ADD_GROUP_SUB("/addgroupsub"),
+  LIST_GROUP_SUB("/listgroupsub"),
   STOP("/stop");
 
   private final String commandName;

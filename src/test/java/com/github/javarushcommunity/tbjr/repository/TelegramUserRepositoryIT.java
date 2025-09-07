@@ -1,5 +1,6 @@
 package com.github.javarushcommunity.tbjr.repository;
 
+import com.github.javarushcommunity.tbjr.repository.entity.GroupSub;
 import com.github.javarushcommunity.tbjr.repository.entity.TelegramUser;
 import java.util.List;
 import java.util.Optional;
@@ -40,5 +41,19 @@ public class TelegramUserRepositoryIT {
 
     Assertions.assertTrue(saved.isPresent());
     Assertions.assertEquals(telegramUser, saved.get());
+  }
+
+  @Sql(scripts = {"/sql/clearDbs.sql", "/sql/fiveGroupSubsForUser.sql"})
+  @Test
+  public void shouldProperlyGetAllGroupSubsForUser() {
+    Optional<TelegramUser> userFromDB = telegramUserRepository.findById("1");
+
+    Assertions.assertTrue(userFromDB.isPresent());
+    List<GroupSub> groupSubs = userFromDB.get().getGroupSubs();
+    for (int i = 0; i < groupSubs.size(); i++) {
+      Assertions.assertEquals(String.format("g%s", (i + 1)), groupSubs.get(i).getTitle());
+      Assertions.assertEquals(i + 1, groupSubs.get(i).getId());
+      Assertions.assertEquals(i + 1, groupSubs.get(i).getLastArticleId());
+    }
   }
 }

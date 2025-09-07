@@ -16,3 +16,6 @@ spring:
 bot:
   token: ${BOT_TOKEN}
 
+javarush:
+  api:
+    path: https://javarush.com/api/1.0/rest
