@@ -6,7 +6,9 @@ import com.github.javarushcommunity.tbjr.command.CommandContainer;
 import com.github.javarushcommunity.tbjr.javarushclient.JavaRushGroupClient;
 import com.github.javarushcommunity.tbjr.service.GroupSubService;
 import com.github.javarushcommunity.tbjr.service.SendBotMessageServiceImpl;
+import com.github.javarushcommunity.tbjr.service.StatisticsService;
 import com.github.javarushcommunity.tbjr.service.TelegramUserService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,22 +26,26 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
   private final CommandContainer commandContainer;
 
   @Autowired
-  public UpdateConsumer(TelegramClient telegramClient, TelegramUserService telegramUserService, JavaRushGroupClient groupClient, GroupSubService groupSubService) {
+  public UpdateConsumer(TelegramClient telegramClient, TelegramUserService telegramUserService,
+      JavaRushGroupClient groupClient, GroupSubService groupSubService,
+      @Value("#{'${bot.admins}'.split(',')}") List<String> admins, StatisticsService statisticsService) {
     this.telegramClient = telegramClient;
     this.commandContainer = new CommandContainer(
-        new SendBotMessageServiceImpl(this.telegramClient), telegramUserService, groupClient, groupSubService);
+        new SendBotMessageServiceImpl(this.telegramClient), telegramUserService, groupClient,
+        groupSubService, admins, statisticsService);
   }
 
   @Override
   public void consume(Update update) {
     if (update.hasMessage() && update.getMessage().hasText()) {
       String message = update.getMessage().getText().trim();
+      String username = update.getMessage().getFrom().getUserName();
       if (message.startsWith(COMMAND_PREFIX)) {
         String commandIdentifier = message.split(" ")[0].toLowerCase();
 
-        commandContainer.retrieveCommand(commandIdentifier).execute(update);
+        commandContainer.retrieveCommand(commandIdentifier, username).execute(update);
       } else {
-        commandContainer.retrieveCommand(NO.getCommandName()).execute(update);
+        commandContainer.retrieveCommand(NO.getCommandName(), username).execute(update);
       }
     }
   }

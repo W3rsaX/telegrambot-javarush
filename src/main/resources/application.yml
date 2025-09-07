@@ -16,6 +16,7 @@ spring:
 bot:
   token: ${BOT_TOKEN}
   recountNewArticleFixedRate: 900000
+  admins: ${BOT_ADMINS}
 
 javarush:
   api:
