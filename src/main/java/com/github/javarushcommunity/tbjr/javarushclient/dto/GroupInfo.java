@@ -12,7 +12,7 @@ public class GroupInfo {
   private String avatarUrl;
   private Long createTime;
   private String description;
-  private GroupLanguage language;
+  private Language language;
   private Integer levelToEditor;
   private MeGroupInfo meGroupInfo;
   private String pictureUrl;

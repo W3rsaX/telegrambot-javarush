@@ -1,5 +1,6 @@
 package com.github.javarushcommunity.tbjr.service;
 
+import com.github.javarushcommunity.tbjr.javarushclient.JavaRushGroupClient;
 import com.github.javarushcommunity.tbjr.javarushclient.dto.GroupDiscussionInfo;
 import com.github.javarushcommunity.tbjr.repository.GroupSubRepository;
 import com.github.javarushcommunity.tbjr.repository.entity.GroupSub;
@@ -13,11 +14,13 @@ public class GroupSubServiceImpl implements GroupSubService {
 
   private final GroupSubRepository groupSubRepository;
   private final TelegramUserService telegramUserService;
+  private final JavaRushGroupClient javaRushGroupClient;
 
   public GroupSubServiceImpl(GroupSubRepository groupSubRepository,
-      TelegramUserService telegramUserService) {
+      TelegramUserService telegramUserService, JavaRushGroupClient javaRushGroupClient) {
     this.groupSubRepository = groupSubRepository;
     this.telegramUserService = telegramUserService;
+    this.javaRushGroupClient = javaRushGroupClient;
   }
 
   @Override
@@ -37,6 +40,7 @@ public class GroupSubServiceImpl implements GroupSubService {
     } else {
       groupSub = new GroupSub();
       groupSub.addUser(telegramUser);
+      groupSub.setLastPostId(javaRushGroupClient.findLastPostId(groupDiscussionInfo.getId()));
       groupSub.setId(groupDiscussionInfo.getId());
       groupSub.setTitle(groupDiscussionInfo.getTitle());
     }
