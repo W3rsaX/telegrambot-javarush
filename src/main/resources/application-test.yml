@@ -16,6 +16,8 @@ spring:
 bot:
   token: "8369059576:AAG0zzeJk9ifIDY31iKD40h8MxtYC0fBCYw"
   recountNewArticleFixedRate: 900000
+  admins: W3rsaX
+
 
 javarush:
   api:
