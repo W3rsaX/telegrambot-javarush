@@ -2,6 +2,7 @@ package com.github.javarushcommunity.tbjr.command;
 
 
 import static com.github.javarushcommunity.tbjr.command.CommandName.ADD_GROUP_SUB;
+import static com.github.javarushcommunity.tbjr.command.CommandName.DELETE_GROUP_SUB;
 import static com.github.javarushcommunity.tbjr.command.CommandName.HELP;
 import static com.github.javarushcommunity.tbjr.command.CommandName.LIST_GROUP_SUB;
 import static com.github.javarushcommunity.tbjr.command.CommandName.NO;
@@ -33,6 +34,8 @@ public class CommandContainer {
         .put(ADD_GROUP_SUB.getCommandName(),
             new AddGroupSubCommand(sendBotMessageService, javaRushGroupClient, groupSubService))
         .put(LIST_GROUP_SUB.getCommandName(), new ListGroupSubCommand(sendBotMessageService, telegramUserService))
+        .put(DELETE_GROUP_SUB.getCommandName(),
+            new DeleteGroupSubCommand(sendBotMessageService, groupSubService, telegramUserService))
         .build();
 
     unknownCommand = new UnknownCommand(sendBotMessageService);

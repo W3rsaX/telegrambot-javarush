@@ -4,8 +4,8 @@ import com.github.javarushcommunity.tbjr.javarushclient.dto.GroupDiscussionInfo;
 import com.github.javarushcommunity.tbjr.repository.GroupSubRepository;
 import com.github.javarushcommunity.tbjr.repository.entity.GroupSub;
 import com.github.javarushcommunity.tbjr.repository.entity.TelegramUser;
+import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,5 +41,20 @@ public class GroupSubServiceImpl implements GroupSubService {
       groupSub.setTitle(groupDiscussionInfo.getTitle());
     }
     return groupSubRepository.save(groupSub);
+  }
+
+  @Override
+  public GroupSub save(GroupSub groupSub) {
+    return groupSubRepository.save(groupSub);
+  }
+
+  @Override
+  public Optional<GroupSub> findById(Integer id) {
+    return groupSubRepository.findById(id);
+  }
+
+  @Override
+  public List<GroupSub> findAll() {
+    return groupSubRepository.findAll();
   }
 }
