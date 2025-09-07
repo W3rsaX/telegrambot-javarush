@@ -15,7 +15,9 @@ spring:
 
 bot:
   token: ${BOT_TOKEN}
+  recountNewArticleFixedRate: 900000
 
 javarush:
   api:
     path: https://javarush.com/api/1.0/rest
+

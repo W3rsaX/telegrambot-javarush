@@ -1,13 +1,12 @@
 package com.github.javarushcommunity.tbjr.javarushclient;
 
-import com.github.javarushcommunity.tbjr.javarushclient.dto.GroupDiscussionInfo;
-import com.github.javarushcommunity.tbjr.javarushclient.dto.GroupInfo;
-import com.github.javarushcommunity.tbjr.javarushclient.dto.GroupRequestArgs;
-import com.github.javarushcommunity.tbjr.javarushclient.dto.GroupsCountRequestArgs;
+import static org.springframework.util.CollectionUtils.isEmpty;
+
+import com.github.javarushcommunity.tbjr.javarushclient.dto.*;
 import java.util.List;
+import java.util.Optional;
 import kong.unirest.core.GenericType;
 import kong.unirest.core.Unirest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +14,11 @@ import org.springframework.stereotype.Component;
 public class JavaRushGroupClientImpl implements JavaRushGroupClient {
 
   private final String javarushApiGroupPath;
+  private final String getJavarushApiPostPath;
 
   public JavaRushGroupClientImpl(@Value("${javarush.api.path}") String ApiPath) {
     this.javarushApiGroupPath = ApiPath + "/groups";
+    this.getJavarushApiPostPath = ApiPath + "/posts";
   }
 
   @Override
@@ -53,5 +54,17 @@ public class JavaRushGroupClientImpl implements JavaRushGroupClient {
     return Unirest.get(String.format("%s/group%s", javarushApiGroupPath, id.toString()))
         .asObject(GroupDiscussionInfo.class)
         .getBody();
+  }
+
+  @Override
+  public Integer findLastPostId(Integer groupSubId) {
+    List<PostInfo> posts = Unirest.get(getJavarushApiPostPath)
+        .queryString("order", "NEW")
+        .queryString("groupKid", groupSubId.toString())
+        .queryString("limit", "1")
+        .asObject(new GenericType<List<PostInfo>>() {
+        })
+        .getBody();
+    return isEmpty(posts) ? 0 : Optional.ofNullable(posts.get(0)).map(PostInfo::getId).orElse(0);
   }
 }

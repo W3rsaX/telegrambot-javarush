@@ -1,5 +1,7 @@
 package com.github.javarushcommunity.tbjr.service;
 
+import com.github.javarushcommunity.tbjr.javarushclient.JavaRushGroupClient;
+import com.github.javarushcommunity.tbjr.javarushclient.JavaRushGroupClientImpl;
 import com.github.javarushcommunity.tbjr.javarushclient.dto.GroupDiscussionInfo;
 import com.github.javarushcommunity.tbjr.repository.GroupSubRepository;
 import com.github.javarushcommunity.tbjr.repository.entity.GroupSub;
@@ -14,33 +16,39 @@ import org.mockito.Mockito;
 public class GroupSubServiceTest {
   private GroupSubService groupSubService;
   private GroupSubRepository groupSubRepository;
+  private JavaRushGroupClient javaRushGroupClient;
   private TelegramUser newUser;
 
-  private final static String CHAT_ID = "1";
+  private final static String CHAT_ID = "1234234";
+  private final static Integer GROUP_ID = 1123;
+  private final static Integer LAST_POST_ID = 310;
 
   @BeforeEach
   public void init() {
     TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
     groupSubRepository = Mockito.mock(GroupSubRepository.class);
-    groupSubService = new GroupSubServiceImpl(groupSubRepository, telegramUserService);
+    javaRushGroupClient = Mockito.mock(JavaRushGroupClient.class);
+    groupSubService = new GroupSubServiceImpl(groupSubRepository, telegramUserService, javaRushGroupClient);
 
     newUser = new TelegramUser();
     newUser.setActive(true);
     newUser.setChatId(CHAT_ID);
 
     Mockito.when(telegramUserService.findByChatId(CHAT_ID)).thenReturn(Optional.of(newUser));
+    Mockito.when(javaRushGroupClient.findLastPostId(GROUP_ID)).thenReturn(LAST_POST_ID);
   }
 
   @Test
   public void shouldProperlySaveGroup() {
 
     GroupDiscussionInfo groupDiscussionInfo = new GroupDiscussionInfo();
-    groupDiscussionInfo.setId(1);
+    groupDiscussionInfo.setId(GROUP_ID);
     groupDiscussionInfo.setTitle("g1");
 
     GroupSub expectedGroupSub = new GroupSub();
     expectedGroupSub.setId(groupDiscussionInfo.getId());
     expectedGroupSub.setTitle(groupDiscussionInfo.getTitle());
+    expectedGroupSub.setLastPostId(LAST_POST_ID);
     expectedGroupSub.addUser(newUser);
 
     groupSubService.save(CHAT_ID, groupDiscussionInfo);

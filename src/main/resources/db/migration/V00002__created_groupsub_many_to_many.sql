@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS group_x_user;
 CREATE TABLE group_sub (
    id INT,
    title VARCHAR(100),
-   last_article_id INT,
+   last_post_id INT,
    PRIMARY KEY (id)
 );
 
