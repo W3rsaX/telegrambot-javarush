@@ -3,6 +3,8 @@ package com.github.javarushcommunity.tbjr.bot;
 import static com.github.javarushcommunity.tbjr.command.CommandName.NO;
 
 import com.github.javarushcommunity.tbjr.command.CommandContainer;
+import com.github.javarushcommunity.tbjr.javarushclient.JavaRushGroupClient;
+import com.github.javarushcommunity.tbjr.service.GroupSubService;
 import com.github.javarushcommunity.tbjr.service.SendBotMessageServiceImpl;
 import com.github.javarushcommunity.tbjr.service.TelegramUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +20,15 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
 
   public static String COMMAND_PREFIX = "/";
 
-  @Value("${bot.token}")
-  private String botToken;
-
   private final TelegramClient telegramClient;
+
 
   private final CommandContainer commandContainer;
 
-  @Autowired
-  public UpdateConsumer(@Value("${bot.token}") String botToken, TelegramUserService telegramUserService) {
+  public UpdateConsumer(@Value("${bot.token}") String botToken, TelegramUserService telegramUserService, JavaRushGroupClient groupClient, GroupSubService groupSubService) {
     this.telegramClient = new OkHttpTelegramClient(botToken);
     this.commandContainer = new CommandContainer(
-        new SendBotMessageServiceImpl(this.telegramClient), telegramUserService);
+        new SendBotMessageServiceImpl(this.telegramClient), telegramUserService, groupClient, groupSubService);
   }
 
   @Override

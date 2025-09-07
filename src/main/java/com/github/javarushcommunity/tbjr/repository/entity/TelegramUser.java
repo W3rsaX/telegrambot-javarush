@@ -2,8 +2,11 @@ package com.github.javarushcommunity.tbjr.repository.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -16,4 +19,7 @@ public class TelegramUser {
 
   @Column(name = "active")
   private boolean active;
+
+  @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+  private List<GroupSub> groupSubs;
 }

@@ -1,5 +1,7 @@
 package com.github.javarushcommunity.tbjr.command;
 
+import com.github.javarushcommunity.tbjr.javarushclient.JavaRushGroupClient;
+import com.github.javarushcommunity.tbjr.service.GroupSubService;
 import com.github.javarushcommunity.tbjr.service.SendBotMessageService;
 import com.github.javarushcommunity.tbjr.service.TelegramUserService;
 import java.util.Arrays;
@@ -18,7 +20,9 @@ public class CommandContainerTest {
   public void init() {
     SendBotMessageService sendBotMessageService = Mockito.mock(SendBotMessageService.class);
     TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
-    commandContainer = new CommandContainer(sendBotMessageService, telegramUserService);
+    JavaRushGroupClient groupClient = Mockito.mock(JavaRushGroupClient.class);
+    GroupSubService groupSubService = Mockito.mock(GroupSubService.class);
+    commandContainer = new CommandContainer(sendBotMessageService, telegramUserService, groupClient, groupSubService);
   }
 
   @Test
