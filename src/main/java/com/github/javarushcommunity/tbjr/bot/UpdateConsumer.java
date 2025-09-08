@@ -43,9 +43,9 @@ public class UpdateConsumer implements LongPollingSingleThreadUpdateConsumer {
       if (message.startsWith(COMMAND_PREFIX)) {
         String commandIdentifier = message.split(" ")[0].toLowerCase();
 
-        commandContainer.retrieveCommand(commandIdentifier, username).execute(update);
+        commandContainer.findCommand(commandIdentifier, username).execute(update);
       } else {
-        commandContainer.retrieveCommand(NO.getCommandName(), username).execute(update);
+        commandContainer.findCommand(NO.getCommandName(), username).execute(update);
       }
     }
   }

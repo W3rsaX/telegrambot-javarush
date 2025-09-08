@@ -1,4 +1,7 @@
 version: '3.8'
+
+name: TBJR-Test
+
 services:
   postgres:
     image: postgres

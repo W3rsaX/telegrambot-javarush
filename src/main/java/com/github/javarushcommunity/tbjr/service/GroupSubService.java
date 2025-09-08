@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface GroupSubService {
 
-  GroupSub save(String chatId, GroupDiscussionInfo groupDiscussionInfo);
+  GroupSub save(Long chatId, GroupDiscussionInfo groupDiscussionInfo);
 
   Optional<GroupSub> findById(Integer integer);
 
