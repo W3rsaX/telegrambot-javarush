@@ -1,12 +1,14 @@
 version: '3.8'
 
+name: TBJR-Prod
+
 networks:
   tbjr-network:
     driver: bridge
 
 services:
   tbjr-app:
-    container_name: tbjr-app
+    container_name: tbjr-app-prod
     depends_on:
       - tbjr-db
     build:
@@ -23,7 +25,7 @@ services:
       - tbjr-network
 
   tbjr-db:
-    container_name: tbjr-db
+    container_name: tbjr-db-prod
     image: postgres
     restart: unless-stopped
     env_file:
