@@ -1,0 +1,44 @@
+version: '3.8'
+
+name: TBJR
+
+networks:
+  network:
+    driver: bridge
+
+services:
+  app:
+    container_name: app-prod
+    depends_on:
+      - db
+    image: wersax/tbjr-app
+    restart: unless-stopped
+    env_file:
+      - .env.prod
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${DB_NAME}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - BOT_TOKEN=${BOT_TOKEN}
+    networks:
+      - network
+
+  db:
+    container_name: db-prod
+    image: postgres
+    restart: unless-stopped
+    env_file:
+      - .env.prod
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      - network
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    name: tbjr_db_data

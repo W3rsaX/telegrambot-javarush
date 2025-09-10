@@ -1,44 +1,44 @@
 version: '3.8'
 
-name: TBJR-Prod
+name: TBJR-dev
 
 networks:
-  tbjr-network:
+  network:
     driver: bridge
 
 services:
-  tbjr-app:
-    container_name: tbjr-app-prod
+  app:
+    container_name: app-dev
     depends_on:
-      - tbjr-db
+      - db
     build:
       context: .
+    restart: unless-stopped
     env_file:
-      - .env.prod
+      - .env.dev
     environment:
-      - SPRING_DATASOURCE_URL=${DB_URL}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${DB_NAME}
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
       - BOT_TOKEN=${BOT_TOKEN}
-    restart: unless-stopped
     networks:
-      - tbjr-network
+      - network
 
-  tbjr-db:
-    container_name: tbjr-db-prod
+  db:
+    container_name: db-dev
     image: postgres
     restart: unless-stopped
     env_file:
-      - .env.prod
+      - .env.dev
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     networks:
-      - tbjr-network
-
+      - network
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
   postgres_data:
+    name: tbjr_db_data
