@@ -23,7 +23,7 @@ public class StatisticsServiceImpl implements StatisticsService {
   @Override
   public StatisticDTO countBotStatistic() {
     List<GroupStatDTO> groupStatDTOS = groupSubService.findAll().stream()
-        .filter(it -> !isEmpty(it.getUsers()))
+        .filter(groupSub -> !isEmpty(groupSub.getUsers()))
         .map(groupSub -> new GroupStatDTO(groupSub.getId(), groupSub.getTitle(), groupSub.getUsers().size()))
         .collect(Collectors.toList());
     List<TelegramUser> allInActiveUsers = telegramUserService.findAllInactiveUsers();

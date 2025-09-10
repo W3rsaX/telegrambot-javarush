@@ -1,5 +1,8 @@
 # Release Notes
 
+## 1.1.0
+*   TBJR-14: implement container launch using image from Docker Hub
+
 ## 1.0.0
 Implemented all the logic, planned up to MVP:
 *   User can subscribe on group of posts
@@ -10,36 +13,36 @@ Implemented all the logic, planned up to MVP:
 *   Admin has ability to see bot statistics
 
 ## 0.8.0-SNAPSHOT
-*   JRTB-10: extended bot statistics for admins.
+*   TBJR-10: extended bot statistics for admins.
 
 ## 0.7.0-SNAPSHOT
 
-*   JRTB-4: added ability to send notifications about new articles
-*   JRTB-8: added ability to set inactive telegram user
-*   JRTB-9: added ability to set active user and/or start using it.
+*   TBJR-4: added ability to send notifications about new articles
+*   TBJR-8: added ability to set inactive telegram user
+*   TBJR-9: added ability to set active user and/or start using it.
 
 ## 0.6.0-SNAPSHOT
 
-*   JRTB-7: added the ability to delete group subscription.
+*   TBJR-7: added the ability to delete group subscription.
 
 ## 0.5.0-SNAPSHOT
 
-*   JRTB-5: added ability to subscribe on group
-*   JRTB-6: added ability to get a list of group subscriptions.
+*   TBJR-5: added ability to subscribe on group
+*   TBJR-6: added ability to get a list of group subscriptions.
 
 ## 0.4.0-SNAPSHOT
 
-*   JRTB-1: added repository layer.
+*   TBJR-1: added repository layer.
 
 ## 0.3.0-SNAPSHOT
 
-*   JRTB-13: added deployment process to the project
+*   TBJR-13: added deployment process to the project
 
 ## 0.2.0-SNAPSHOT
 
-*   JRTB-3: implemented Command pattern for handling Telegram Bot commands
+*   TBJR-3: implemented Command pattern for handling Telegram Bot commands
 
 ## 0.1.0-SNAPSHOT
 
-*   JRTB-2: added stub telegram bot
-*   JRTB-0: added SpringBoot skeleton project
+*   TBJR-2: added stub telegram bot
+*   TBJR-0: added SpringBoot skeleton project
